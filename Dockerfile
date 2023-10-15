@@ -1,4 +1,4 @@
-FROM python:3.9-alpine3.13
+FROM python:3.9-alpine3.18
 LABEL maintainers="carloschf"
 
 ENV PYTHONUNBUFFERED 1
@@ -19,12 +19,16 @@ RUN python -m venv /py && \
     if [ $DEV = "true" ]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
     fi && \
-    rm -rf /tmp && \
-    apk del .tmp-build-deps && \
+    # rm -rf /tmp && \
+    # apk del .tmp-build-deps && \
     adduser \
         --disabled-password \
-        --no-create-home \
-        django-user
+        # --no-create-home \
+        django-user && \
+        chown -R django-user /app && \
+    chown -R django-user /py && \
+    chown -R django-user /home/django-user 
+
 
  ENV PATH="/py/bin::$PATH"
 
