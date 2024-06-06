@@ -8,9 +8,11 @@ from rest_framework import status
 
 CREATE_USER_URL = reverse('user:create')
 
+
 def create_user(**params):
     """ Create and return a new user """
     return get_user_model().objects.create_user(**params)
+
 
 class PublicUserApiTests(TestCase):
     """ TEst the public features of the use API """
